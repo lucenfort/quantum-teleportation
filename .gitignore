@@ -57,6 +57,8 @@ qiskit_cache/
 !src/**/*.json
 !tests/**/*.json
 !relatorio.pdf
+!resultados/
+!resultados/**
 
 # Testing
 .pytest_cache/

@@ -52,10 +52,11 @@ qiskit_cache/
 
 # Output files
 *.png
-#*.pdf
+*.pdf
 *.json
 !src/**/*.json
 !tests/**/*.json
+!relatorio.pdf
 
 # Testing
 .pytest_cache/

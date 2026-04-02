@@ -1,28 +1,21 @@
 # Teletransporte Quântico
 
-![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg) ![Build](https://img.shields.io/badge/build-draft-lightgrey.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg) ![Status](https://img.shields.io/badge/status-completed-brightgreen.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
 Simulação de emaranhamento quântico e protocolo de teletransporte usando Qiskit.
-
-## Recursos
-
-- **Estados de Bell** — Geração e análise de quatro estados emaranhados.
-- **Teletransporte** — Implementação do protocolo de teletransporte (3 qubits).
-- **Visualização** — Gráficos gerados em alta resolução na pasta `resultados/`.
 
 ## Sumário
 
 - [Teletransporte Quântico](#teletransporte-quântico)
-  - [Recursos](#recursos)
   - [Sumário](#sumário)
   - [Estrutura do Projeto](#estrutura-do-projeto)
   - [Instalação](#instalação)
   - [Uso](#uso)
+  - [Resumo do problema](#resumo-do-problema)
   - [Resultados](#resultados)
     - [1) Estados de Bell](#1-estados-de-bell)
     - [2) Teletransporte Quântico](#2-teletransporte-quântico)
       - [Métricas (valores obtidos)](#métricas-valores-obtidos)
-  - [Reprodutibilidade](#reprodutibilidade)
   - [Requisitos](#requisitos)
 
 ## Estrutura do Projeto
@@ -83,6 +76,25 @@ python src/quantum_teleportation.py
 
 Os outputs (plots e arquivos gerados) são salvos em `resultados/`.
 
+## Resumo do problema
+
+Implementar e validar dois experimentos principais em Qiskit:
+
+- Estados de Bell (gerar os 4 estados maximamente emaranhados):
+  - `|Φ^{00}⟩` (|Φ+⟩): aplicar `H` em q0, depois `CNOT(q0, q1)` → mede `00`/`11`.
+  - `|Φ^{10}⟩` (|Φ-⟩): aplicar `Z` em q0, `H` em q0, depois `CNOT(q0, q1)` → fase -1 entre componentes.
+  - `|Ψ^{01}⟩` (|Ψ+⟩): aplicar `H` em q0, `CNOT(q0, q1)`, então `X` em q1 → resultados `01`/`10`.
+  - `|Ψ^{11}⟩` (|Ψ-⟩): aplicar `X` em q1, `H` em q0, `Z` em q0, `CNOT(q0, q1)` → versão com sinal negativo.
+
+- Protocolo de Teletransporte (3 qubits: q0=estado, q1=Alice, q2=Bob):
+  1. Preparar estado a teletransportar em `q0` (neste desafio: aplicar `X` para preparar |1⟩).
+  2. Criar par emaranhado entre `q1` e `q2`: `H(q1)`; `CNOT(q1, q2)`.
+  3. Medição de Bell entre `q0` e `q1`: `CNOT(q0, q1)`; `H(q0)`; medir `q0,q1` (bits clássicos c0,c1).
+  4. Aplicar correções condicionais em `q2`: se `c1==1` então `X(q2)`; se `c0==1` então `Z(q2)`.
+  5. Medir `q2` para verificar que o estado original de `q0` foi recuperado em `q2`.
+
+As sequências de portas acima correspondem aos scripts em `src/bell_states.py` e `src/quantum_teleportation.py`.
+
 ## Resultados
 
 As figuras geradas pelas simulações estão disponíveis na pasta `resultados/`.
@@ -116,15 +128,6 @@ Estados de Bell (contagens, 1024 shots cada):
 - `|Ψ⁻⟩`: `{'01': 504 (49.2%), '10': 520 (50.8%)}`
 
 > Observação: os valores acima foram gerados localmente executando `src/bell_states.py` e `src/quantum_teleportation.py` com `shots=1024` e salvos em `resultados/`.
-
-## Reprodutibilidade
-
-Para regenerar os plots e métricas exatamente como nas execuções testadas:
-
-```bash
-python src/bell_states.py      # Regenera resultados/bell_states.png
-python src/quantum_teleportation.py  # Regenera resultados/teleportation.png e imprime métricas
-```
 
 ## Requisitos
 

@@ -150,11 +150,11 @@ def visualize_bell_states():
     gs = fig.add_gridspec(2, 2, hspace=0.35, wspace=0.3)
     
     # Main title
-    fig.text(0.5, 0.98, 'Bell States Measurement Results', 
+    fig.text(0.5, 0.98, 'Resultados das Medições dos Estados de Bell', 
              ha='center', va='top', fontsize=24, fontweight='bold',
              color=COLORS['highlight'])
     
-    fig.text(0.5, 0.94, '1024 measurement shots per state', 
+    fig.text(0.5, 0.94, '1024 medições por estado', 
              ha='center', va='top', fontsize=12,
              color=COLORS['secondary'], style='italic')
     
@@ -191,13 +191,13 @@ def visualize_bell_states():
                    color=COLORS['secondary'])
         
         # Styling
-        ax.set_xlabel('Measurement Outcome', fontsize=12, fontweight='bold',
+        ax.set_xlabel('Resultado da Medição', fontsize=12, fontweight='bold',
                      color=COLORS['highlight'], labelpad=10)
-        ax.set_ylabel('Counts', fontsize=12, fontweight='bold',
+        ax.set_ylabel('Contagens', fontsize=12, fontweight='bold',
                      color=COLORS['highlight'], labelpad=10)
         
         # Title with state information
-        ax.set_title(f'|{name}⟩ State\n{bell_states_info[name]}',
+        ax.set_title(f'Estado |{name}⟩\n{bell_states_info[name]}',
                     fontsize=13, fontweight='bold',
                     color=COLORS['highlight'], pad=15)
         

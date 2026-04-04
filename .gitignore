@@ -56,7 +56,8 @@ qiskit_cache/
 *.json
 !src/**/*.json
 !tests/**/*.json
-!relatorio.pdf
+!docs/
+!docs/**
 !resultados/
 !resultados/**
 

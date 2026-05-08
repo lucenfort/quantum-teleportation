@@ -50,22 +50,7 @@ def main():
     
     # Summary
     print_separator("RESUMO")
-    print("""
-✓ Experimento de Estados de Bell:
-  - Gerados 4 estados de Bell emaranhados maximais
-  - Medição e visualização bem-sucedidas de distribuições de probabilidade
-  
-✓ Experimento de Teletransporte Quântico:
-  - Emaranhamento estabelecido entre qubits 1 e 2
-  - Estado quântico preparado no qubit 0 (porta X aplicada)
-  - Medição de Bell realizada nos qubits 0 e 1
-  - Portas corretivas aplicadas baseado nos resultados de medição
-  - Teletransporte do estado bem-sucedido para qubit 2
-  - Estado final verificado através de medição
-
-Para fundamentos matemáticos detalhados, veja docs/THEORY.md
-""")
-    
+    print("")
     print("\n" + "="*60)
     print("Execução Completa!")
     print("="*60 + "\n")

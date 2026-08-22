@@ -1,82 +1,117 @@
-# Teletransporte Quântico
+<div align="center">
+  <img src="assets/banner.svg" alt="Quantum Teleportation Banner" width="100%" />
 
-<p align="center">
-  <img src="./assets/banner.svg" alt="Project Banner" width="100%" />
-</p>
+  <br/><br/>
 
-<p align="left">
-	<img src="https://img.shields.io/badge/Python-3.9+-FFD700?style=for-the-badge&logo=python&logoColor=111111&labelColor=0B0B0B" alt="Python" />
-	<img src="https://img.shields.io/badge/Qiskit-00FFF7?style=for-the-badge&logo=qiskit&logoColor=111111&labelColor=0B0B0B" alt="Qiskit" />
-	<img src="https://img.shields.io/badge/Status-Finalizado-FF00FF?style=for-the-badge&logoColor=111111&labelColor=0B0B0B" alt="Status" />
-</p>
-
-Simulação de emaranhamento quântico e protocolo de teletransporte utilizando Qiskit. Demonstração prática de como estados quânticos podem ser transferidos entre qubits através de recursos clássicos e emaranhamento.
-
-## [>] SYS.NAVEGAÇÃO
-
-[Estrutura](#-estrutura-do-projeto) • [Instalação](#-instalação) • [Uso](#-uso) • [Teoria](#-resumo-do-problema) • [Resultados](#-resultados)
+  <p align="center">
+    <strong>Simulação e Validação Experimental do Protocolo de Teletransporte Quântico</strong><br/>
+    Implementação prática de circuitos quânticos, geração de <strong>Pares de Bell (Emaranhamento)</strong> e reconstrução de estados arbitrários com o <strong>Qiskit</strong>.
+  </p>
+</div>
 
 ---
 
-## [=] ESTRUTURA_PROJETO
+## 📌 1. Visão Geral da Arquitetura & Circuito Quântico
 
+O protocolo demonstra a transferência determinística do estado quântico desconhecido $|\psi\rangle$ de um qubit emissor (Alice) para um qubit receptor (Bob), utilizando um par de Bell pré-compartilhado e 2 bits de comunicação clássica:
+
+```mermaid
+flowchart LR
+    A["Estado Inicial |ψ⟩ = α|0⟩ + β|1⟩"] --> B["Criação do Par de Bell (|Φ⁺⟩)"]
+    B --> C["Medição Conjunta na Base de Bell (Alice)"]
+    C --> D["Transmissão de 2 Bits Clássicos"]
+    D --> E["Operações Unitárias de Correção (X / Z - Bob)"]
+    E --> F["Reconstrução Exata de |ψ⟩ no Qubit Alvo"]
 ```
+
+---
+
+## 📁 2. Estrutura do Repositório
+
+```text
 quantum-teleportation/
-├── assets/               # HUDs e Banner Cyberpunk
-├── docs/                 # Fundamentos matemáticos e desafios
-├── resultados/           # Plots de circuitos e medições
-├── src/                  # Código fonte principal
-│   ├── main.py           # Pipeline completo de execução
-│   ├── bell_states.py    # Geração de estados emaranhados
-│   └── quantum_teleportation.py # Protocolo de teletransporte
-├── requirements.txt      # Dependências (Qiskit, Aer, MPL)
-└── README.md             # Documentação técnica
+├── assets/                  # Banners dinâmicos e identidades visuais do projeto
+├── docs/                    # Fundamentação matemática de portas lógicas e tensores
+├── resultados/              # Diagramas de circuitos gerados e histogramas de medição (.png)
+│   ├── bell_states.png
+│   └── teleportation.png
+├── src/
+│   ├── main.py              # Pipeline completo de execução e plotagem automática
+│   ├── bell_states.py       # Geração e tomografia dos 4 estados maximamente emaranhados
+│   └── quantum_teleportation.py # Circuito e lógica de teletransporte com correção dinâmica
+├── requirements.txt         # Dependências do ecossistema Python (Qiskit, Aer, Matplotlib)
+├── LICENSE                  # Licença de código aberto
+└── README.md                # Documentação técnica e guia de reprodução
 ```
 
 ---
 
-## [*] INSTALAÇÃO_E_EXECUÇÃO
+## ⚙️ 3. Configuração do Ambiente
 
-### 1. Preparar Ambiente
+### Pré-requisitos
+- Python 3.9+
+- Git
+
+### Instalação
+
 ```bash
+# 1. Clone o repositório
+git clone https://github.com/lucenfort/quantum-teleportation.git
+cd quantum-teleportation
+
+# 2. Crie e ative o ambiente virtual
 python3 -m venv .venv
 source .venv/bin/activate  # Linux/macOS
+# .venv\Scripts\activate   # Windows
+
+# 3. Instale as dependências
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 2. Executar Experimentos
-Para rodar o pipeline completo (Bell States + Teleportation):
+---
+
+## 🚀 4. Execução dos Componentes
+
+### 4.1 Execução dos Experimentos Quânticos
+Para simular a geração dos estados de Bell e executar o circuito completo de teletransporte:
+
 ```bash
-python src/main.py
+python3 src/main.py
 ```
 
-Os resultados visuais serão salvos automaticamente na pasta `resultados/`.
+O script executará as rodadas no simulador de alta precisão `AerSimulator`, imprimirá as contagens no terminal e salvará os gráficos de circuito e medição em `resultados/`.
 
 ---
 
-## [~] RESUMO_DO_PROBLEMA
+## 📊 5. Fundamentos Teóricos & Resultados
 
-### Experimento 1: Estados de Bell
-Geração dos 4 estados maximamente emaranhados (`|Φ⁺⟩`, `|Φ⁻⟩`, `|Ψ⁺⟩`, `|Ψ⁻⟩`) utilizando portas Hadamard e CNOT.
+### 5.1 Geração dos Estados de Bell
+Geração dos 4 estados de entrelaçamento quântico fundamental ($|\Phi^+\rangle, |\Phi^-\rangle, |\Psi^+\rangle, |\Psi^-\rangle$) através da composição de portas Hadamard ($H$) e CNOT:
 
-### Experimento 2: Teletransporte Quântico
-1. **Preparação**: Estado a teletransportar preparado em `q[0]`.
-2. **Emaranhamento**: Criação de par de Bell entre Alice (`q[1]`) e Bob (`q[2]`).
-3. **Medição**: Alice realiza medição de Bell em `q[0]` e `q[1]`.
-4. **Correção**: Bob aplica portas `X` ou `Z` em `q[2]` baseado nos resultados de Alice.
-5. **Verificação**: Medição final de `q[2]` para confirmar a recepção do estado.
+$$|\Phi^+\rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}$$
 
----
+### 5.2 Avaliação do Teletransporte
+- **Fidelidade de Reconstrução de Estado:** `100%` atingida em simulação sem ruído (Aer).
+- **Consistência Estatística:** Conformidade estrita das distribuições de medição com os postulados da Mecânica Quântica e da Teoria da Informação.
 
-## [#] RESULTADOS_SISTEMA
-
-### Estados de Bell
-Distribuição de probabilidade característica dos pares emaranhados.
-![Estados de Bell](resultados/bell_states.png)
-
-### Teletransporte Quântico
-Fidelidade de 100% atingida em simulador Aer.
-![Teletransporte Quântico](resultados/teleportation.png)
+<div align="center">
+  <img src="resultados/bell_states.png" width="48%" alt="Estados de Bell" />
+  <img src="resultados/teleportation.png" width="48%" alt="Teletransporte Quântico" />
+</div>
 
 ---
 
+## 📜 Créditos & Referências
+
+- **Trabalho Pioneiro:** Bennett, C. H., Brassard, G., Crépeau, C., Jozsa, R., Peres, A., & Wootters, W. K. (1993). *Teleporting an unknown quantum state via dual classical and Einstein-Podolsky-Rosen channels*. Physical Review Letters, 70(13), 1895.
+- **Framework:** IBM Qiskit Development Team (2024). *Qiskit: An Open-source Framework for Quantum Computing*.
+- **Livro Texto:** Nielsen, M. A., & Chuang, I. L. (2010). *Quantum Computation and Quantum Information*. Cambridge University Press.
+
+---
+
+## 👨‍💻 Autor
+
+- **Luciano Silva de Arruda**
+- Repositório Oficial: [`https://github.com/lucenfort/quantum-teleportation`](https://github.com/lucenfort/quantum-teleportation)
+- LinkedIn: [Luciano Arruda](https://linkedin.com/in/lucenfort)
